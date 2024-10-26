@@ -4,21 +4,16 @@ import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 
 import java.lang.annotation.*;
-import java.lang.reflect.Field;
 
-@Target({ElementType.FIELD ,ElementType.PARAMETER})
+@Target({ElementType.FIELD, ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@Constraint(validatedBy = ImageNameValidator.class)
+@Constraint(validatedBy = ImageNamveValidate.class)
 public @interface ImageNameValid {
+    String message() default "Invalid image ";
 
-    //error message
-    String message() default  "Invalid image Name !!"  ;
+    Class<?>[] groups() default {};
 
-    // represent group of constraints
-    Class<?>[] groups() default { } ;
-
-    //additional information
-    Class<? extends Payload> [] payload() default { } ;
+    Class<? extends Payload>[] payload() default {};
 
 }

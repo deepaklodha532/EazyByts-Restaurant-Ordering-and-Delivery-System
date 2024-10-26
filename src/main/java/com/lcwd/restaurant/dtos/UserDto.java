@@ -1,5 +1,6 @@
 package com.lcwd.restaurant.dtos;
 
+import com.lcwd.restaurant.validate.ImageNameValid;
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -12,7 +13,6 @@ public class UserDto {
     private String userId;
     @Size(min = 3, max = 50, message = "invalid name")
     private String name;
-
     @Pattern(regexp = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$" ,message = "invalid email")
     @Email(message = "Invalid email")
     private String email ;
@@ -22,7 +22,6 @@ public class UserDto {
     private String gender ;
     @NotBlank(message = "write something about you  it is required ")
     private String about;
-
-
+    @ImageNameValid
     private String imageName;
 }
