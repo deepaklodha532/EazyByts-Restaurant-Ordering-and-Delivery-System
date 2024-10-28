@@ -2,7 +2,6 @@ package com.lcwd.restaurant.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import org.apache.catalina.LifecycleState;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -22,4 +21,7 @@ public class Cart {
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL , fetch = FetchType.EAGER )
     private List<CartItem> items = new ArrayList<>( ) ;
 
+    public static class OrderItem {
+
+    }
 }

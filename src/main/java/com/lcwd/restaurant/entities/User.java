@@ -3,6 +3,9 @@ package com.lcwd.restaurant.entities;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 @Entity
 @Table(name = "users")
@@ -19,5 +22,11 @@ public class User {
     private String gender ;
     private String about;
     private String imageName;
+
+    @OneToMany( mappedBy = "user",fetch = FetchType.LAZY , cascade = CascadeType.ALL)
+    private List<Order> orders = new ArrayList<>() ;
+
+
+
 
 }
