@@ -15,6 +15,4 @@ public class PageableResponse<T> {
     private long totalElements;
     private int totalPages ;
     private boolean lastPage ;
-
-
 }

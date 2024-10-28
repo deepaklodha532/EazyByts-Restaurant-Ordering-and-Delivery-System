@@ -4,10 +4,16 @@ import com.lcwd.restaurant.dtos.CategoryDto;
 import com.lcwd.restaurant.dtos.PageableResponse;
 import com.lcwd.restaurant.dtos.UserDto;
 import com.lcwd.restaurant.entities.Category;
+import com.lcwd.restaurant.entities.User;
 import com.lcwd.restaurant.exceptions.ResourceNotFoundException;
+import com.lcwd.restaurant.helper.Helper;
 import com.lcwd.restaurant.repositories.CategoryRepository;
 import com.lcwd.restaurant.services.CategoryService;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,10 +32,13 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public CategoryDto createCategory(CategoryDto categoryDto) {
-        categoryDto.setCategoryId(UUID.randomUUID().toString()) ;
-        Category saved =  repository.save(mapper.map(categoryDto , Category.class));
+        String categoryId =  UUID.randomUUID().toString()  ;
+        categoryDto.setCategoryId(categoryId);
+        Category category = mapper.map(categoryDto , Category.class) ;
+        Category saved =  repository.save(category);
         return mapper.map(saved, CategoryDto.class) ;
     }
+
 
     @Override
     public void deleteCategory(String categoryId) {
@@ -48,8 +57,18 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public PageableResponse<UserDto> getAllCategory() {
-        return null;
+    public PageableResponse<CategoryDto> getAllCategory(
+            int pageNumber,
+            int pageSize ,
+            String sortBy ,
+            String sortDir
+    ) {
+        Sort sort = (sortDir.equalsIgnoreCase("asc"))?   Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
+        Pageable pageable =  PageRequest.of(pageNumber,pageSize ,sort) ;
+        Page<Category> page =  repository.findAll(pageable);
+        PageableResponse<CategoryDto> pageableResponse=  Helper.getPageableResponse(page, CategoryDto.class) ;
+        return pageableResponse ;
+
     }
 
     @Override

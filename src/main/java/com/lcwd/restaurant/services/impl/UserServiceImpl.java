@@ -10,16 +10,13 @@ import com.lcwd.restaurant.exceptions.ResourceNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.awt.*;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
@@ -94,8 +91,6 @@ public class UserServiceImpl implements UserService {
          Sort sort = (sortDir.equalsIgnoreCase("asc"))?   Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
          Pageable pageable =  PageRequest.of(pageNumber,pageSize ,sort) ;
          Page<User> page =  userRepository.findAll(pageable);
-
-
         PageableResponse<UserDto> pageableResponse = Helper.getPageableResponse(page, UserDto.class);
         return pageableResponse ;
     }

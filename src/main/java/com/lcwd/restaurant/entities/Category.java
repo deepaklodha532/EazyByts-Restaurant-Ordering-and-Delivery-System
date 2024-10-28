@@ -1,13 +1,17 @@
 package com.lcwd.restaurant.entities;
 
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import lombok.Data;
+import com.lcwd.restaurant.dtos.ProductDto;
+import jakarta.persistence.*;
+import lombok.*;
 
-@Data
+import java.util.ArrayList;
+import java.util.List;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "categories")
 public class Category {
@@ -19,5 +23,7 @@ public class Category {
     private String description ;
     private String coverImage ;
 // other attributes if you user and write
+    @OneToMany(mappedBy = "category" , cascade = CascadeType.ALL , fetch = FetchType.LAZY)
+    private List<Product> productList = new ArrayList<>() ;
 
 }

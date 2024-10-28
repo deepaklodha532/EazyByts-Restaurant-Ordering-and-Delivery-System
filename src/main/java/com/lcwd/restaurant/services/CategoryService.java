@@ -18,7 +18,7 @@ public interface CategoryService {
     CategoryDto updateCategory(String categoryId,  CategoryDto categoryDto) ;
 
     // get all
-    PageableResponse<UserDto> getAllCategory();
+    PageableResponse<CategoryDto> getAllCategory(int pageNumber, int pageSize, String sortBy  , String sortDir);
 
     // get single category
     CategoryDto getSingleCategory(String categoryId) ;
